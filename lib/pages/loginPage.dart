@@ -1,9 +1,9 @@
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:p';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:socialapp/pages/registerPage.dart';
 import 'package:socialapp/widgets/customButton.dart';
 import 'package:socialapp/widgets/customTextField.dart';
@@ -21,9 +21,12 @@ class loginPage extends StatelessWidget {
   String ?  email;
   String ?  pass;
 
+  bool isLoading = false ;
+
   @override
   Widget build(BuildContext context) {
     return ModalProgressHUD(
+      inAsyncCall: isLoading,
       child: Scaffold(
         body:Container(
           color: Theme.of(context).primaryColor,
@@ -143,6 +146,7 @@ class loginPage extends StatelessWidget {
 
   Future<void> signInWithEmail(BuildContext ctx) async{
     if (_formKey.currentState!.validate()){
+      isLoading = true ;
       try {
         UserCredential user = await FirebaseAuth.instance
             .signInWithEmailAndPassword(
@@ -158,6 +162,7 @@ class loginPage extends StatelessWidget {
       }catch(e){
         showSnackBar(ctx,mesaage: '$e' , color: Colors.red);
       }
+      isLoading = false ;
     }
   }
   Future<void> signInWithGoogle() async {

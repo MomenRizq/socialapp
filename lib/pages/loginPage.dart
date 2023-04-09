@@ -11,14 +11,23 @@ import 'package:socialapp/widgets/customTextField.dart';
 
 
 
-class loginPage extends StatelessWidget {
+class loginPage extends StatefulWidget {
 
   static String id = "loginPage";
+
+  @override
+  State<loginPage> createState() => _loginPageState();
+}
+
+class _loginPageState extends State<loginPage> {
   final _formKey = GlobalKey<FormState>();
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   String ?  email;
+
   String ?  pass;
 
   bool isLoading = false ;
@@ -142,11 +151,12 @@ class loginPage extends StatelessWidget {
     );
   }
 
-
-
   Future<void> signInWithEmail(BuildContext ctx) async{
     if (_formKey.currentState!.validate()){
       isLoading = true ;
+      setState(() {
+
+      });
       try {
         UserCredential user = await FirebaseAuth.instance
             .signInWithEmailAndPassword(
@@ -154,17 +164,22 @@ class loginPage extends StatelessWidget {
         showSnackBar(ctx ,mesaage: "Success" , color:Colors.green );
         print(user.user?.displayName);
       } on FirebaseAuthException catch (e) {
-        if (e.code == 'user-not-found') {
+        if (e.code == 'user- not-found') {
           showSnackBar(ctx,mesaage: 'No user found for that email.' , color: Colors.red);
         } else if (e.code == 'wrong-password') {
           showSnackBar(ctx,mesaage: 'Wrong password provided for that user.' , color: Colors.red);
         }
-      }catch(e){
-        showSnackBar(ctx,mesaage: '$e' , color: Colors.red);
+        else{
+          showSnackBar(ctx,mesaage: '$e' , color: Colors.red);
+        }
       }
       isLoading = false ;
+      setState(() {
+
+      });
     }
   }
+
   Future<void> signInWithGoogle() async {
     GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
     GoogleSignInAuthentication googleSignInAuthentication =
@@ -176,10 +191,12 @@ class loginPage extends StatelessWidget {
     User user = await _auth.currentUser!;
     print('user email = ${user.email}');
   }
+
   Future<void> signOut() async {
     await _googleSignIn.signOut();
     print('sign out');
   }
+
   void showSnackBar(BuildContext ctx ,{String? mesaage , Color? color }) {
     ScaffoldMessenger.of(ctx)
         .showSnackBar(SnackBar(

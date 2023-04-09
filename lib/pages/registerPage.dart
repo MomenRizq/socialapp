@@ -2,17 +2,27 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:socialapp/pages/loginPage.dart';
 
 import '../widgets/customButton.dart';
 import '../widgets/customTextField.dart';
 
-class registerPage extends StatelessWidget {
+class registerPage extends StatefulWidget {
   static String id = "registerPage";
+
+  @override
+  State<registerPage> createState() => _registerPageState();
+}
+
+class _registerPageState extends State<registerPage> {
   final _formKey = GlobalKey<FormState>();
 
   String ?  name;
+
   String ?  email;
+
   String ?  pass;
+
   bool isLoading = false ;
 
   @override
@@ -102,24 +112,33 @@ class registerPage extends StatelessWidget {
   Future<void> signUpWithEmail(BuildContext ctx) async{
     if (_formKey.currentState!.validate()){
       isLoading = true ;
+      setState(() {
+
+      });
       try {
         UserCredential user = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(
             email: email!, password: pass!);
         showSnackBar(ctx,mesaage: "Done successfully " , color: Colors.green);
         await user.user?.updateDisplayName(name);
+        Navigator.pushNamed(context, loginPage.id);
       }on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           showSnackBar(ctx,mesaage: 'The password provided is too weak.' , color: Colors.red);
         } else if (e.code == 'email-already-in-use') {
          showSnackBar(ctx,mesaage: 'The account already exists for that email.',color: Colors.red);
         }
-      }catch(e){
-        showSnackBar(ctx, mesaage: "$e" , color: Colors.red);
+        else{
+          showSnackBar(ctx,mesaage: '$e' , color: Colors.red);
+        }
       }
       isLoading = false ;
+      setState(() {
+
+      });
 
   }}
+
   void showSnackBar(BuildContext ctx ,{String? mesaage , Color? color }) {
     ScaffoldMessenger.of(ctx)
         .showSnackBar(SnackBar(

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "180089927503",
+    "project_id": "socialchat-e1422",
+    "storage_bucket": "socialchat-e1422.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:180089927503:android:fea774d52ec2e37a67b73a",
+        "android_client_info": {
+          "package_name": "com.example.socialapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "180089927503-r78v90en4p69f2e988taa128rjq06car.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.socialapp",
+            "certificate_hash": "8d6d6eb0b0e78980edc4905bc61d45a914c391c3"
+          }
+        },
+        {
+          "client_id": "180089927503-lkg76u1q7q24urt5iv6serk1dojnpfro.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDr0Q9CdfX2hUaDP2BBDHj-gBV32-NhtQ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "180089927503-lkg76u1q7q24urt5iv6serk1dojnpfro.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

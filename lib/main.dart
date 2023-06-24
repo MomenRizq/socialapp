@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:socialapp/pages/chatPage.dart';
 import 'package:socialapp/pages/loginPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:socialapp/pages/registerPage.dart';
+import 'package:dio/dio.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,8 +24,9 @@ class MyApp extends StatelessWidget {
       routes: {
        loginPage.id :(context)=> loginPage(),
         registerPage.id :(context)=>registerPage(),
+        chatPage.id : (context)=> chatPage(),
       },
-      initialRoute: loginPage.id,
+      initialRoute:  loginPage.id,
     );
   }
 }

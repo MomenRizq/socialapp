@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:socialapp/pages/chatPage.dart';
 import 'package:socialapp/pages/registerPage.dart';
 import 'package:socialapp/widgets/customButton.dart';
 import 'package:socialapp/widgets/customTextField.dart';
+
+import '../helper/showSnackBar.dart';
 
 
 
@@ -66,9 +69,9 @@ class _loginPageState extends State<loginPage> {
                     child: Column(
                       children: <Widget>[
                         const SizedBox(height: 25,),
-                        customTextField(lableText: "Email",hintText: "Enter your email",emptyText: "Email is empty ,write your email , please." ,onchanged: (data){ email = data ; },),
+                        customFormTextField(lableText: "Email",hintText: "Enter your email",emptyText: "Email is empty ,write your email , please." ,onchanged: (data){ email = data ; },),
                         const SizedBox(height: 10,),
-                        customTextField(lableText: "Password",hintText: "Enter your password", obscureText: true ,emptyText: "Password is empty ,write your password , please.", onchanged: (data){ pass = data ; }, ),
+                        customFormTextField(lableText: "Password",hintText: "Enter your password", obscureText: true ,emptyText: "Password is empty ,write your password , please.", onchanged: (data){ pass = data ; }, ),
                         const SizedBox(height: 5,),
                         Container(
                           margin: const EdgeInsets.fromLTRB(10, 20, 10, 20),
@@ -82,7 +85,7 @@ class _loginPageState extends State<loginPage> {
                                       text: 'Create',
                                       recognizer: TapGestureRecognizer()
                                         ..onTap = () {
-                                        Navigator.pushNamed(context, registerPage.id);
+                                        Navigator.pushNamed(context, registerPage.id,);
                                         },
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
@@ -163,6 +166,7 @@ class _loginPageState extends State<loginPage> {
             email: email!, password: pass!);
         showSnackBar(ctx ,mesaage: "Success" , color:Colors.green );
         print(user.user?.displayName);
+        Navigator.pushNamed(context, chatPage.id , arguments: email);
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user- not-found') {
           showSnackBar(ctx,mesaage: 'No user found for that email.' , color: Colors.red);
@@ -197,13 +201,6 @@ class _loginPageState extends State<loginPage> {
     print('sign out');
   }
 
-  void showSnackBar(BuildContext ctx ,{String? mesaage , Color? color }) {
-    ScaffoldMessenger.of(ctx)
-        .showSnackBar(SnackBar(
-      backgroundColor: color,
-      content: Text('$mesaage'),
-      duration: Duration(seconds: 5),
-    ));
-  }
+
 }
 

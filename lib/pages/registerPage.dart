@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:socialapp/pages/loginPage.dart';
 
+import '../helper/showSnackBar.dart';
 import '../widgets/customButton.dart';
 import '../widgets/customTextField.dart';
 
@@ -59,13 +60,13 @@ class _registerPageState extends State<registerPage> {
                       child: Column(
                         children: <Widget>[
                           const SizedBox(height: 25,),
-                           customTextField(lableText: "Name",hintText: "Enter your name",emptyText: "Name is empty ,write your Name , please.",
+                           customFormTextField(lableText: "Name",hintText: "Enter your name",emptyText: "Name is empty ,write your Name , please.",
                               onchanged: (data){ name = data ; },
                           ),
                           const SizedBox(height: 10,),
-                          customTextField(lableText: "Email",hintText: "Enter your email",emptyText: "Email is empty ,write your email , please.",onchanged: (data){ email = data ; }, ),
+                          customFormTextField(lableText: "Email",hintText: "Enter your email",emptyText: "Email is empty ,write your email , please.",onchanged: (data){ email = data ; }, ),
                           const SizedBox(height: 10,),
-                          customTextField(lableText: "Password",hintText: "Enter your password",emptyText: "password is empty ,write your password , please.", obscureText: true , onchanged: (data){ pass = data ; },),
+                          customFormTextField(lableText: "Password",hintText: "Enter your password",emptyText: "password is empty ,write your password , please.", obscureText: true , onchanged: (data){ pass = data ; },),
                           const SizedBox(height: 5,),
                           Container(
                             margin: const EdgeInsets.fromLTRB(10, 20, 10, 20),
@@ -139,12 +140,5 @@ class _registerPageState extends State<registerPage> {
 
   }}
 
-  void showSnackBar(BuildContext ctx ,{String? mesaage , Color? color }) {
-    ScaffoldMessenger.of(ctx)
-        .showSnackBar(SnackBar(
-      backgroundColor: color,
-      content: Text('$mesaage'),
-      duration: Duration(seconds: 5),
-    ));
-  }
+
 }

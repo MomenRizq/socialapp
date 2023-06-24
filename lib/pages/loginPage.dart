@@ -158,7 +158,6 @@ class _loginPageState extends State<loginPage> {
     if (_formKey.currentState!.validate()){
       isLoading = true ;
       setState(() {
-        print("Welcome");
       });
       try {
         UserCredential user = await FirebaseAuth.instance
